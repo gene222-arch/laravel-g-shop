@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\ResetPasswordController;
+use App\Http\Controllers\Api\ProductsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +30,18 @@ use Illuminate\Support\Facades\Route;
             Route::post('/email', [ForgotPasswordController::class, 'sendResetLinkEmail']);
             Route::post('/reset', [ResetPasswordController::class, 'reset'])
                 ->name('password.reset');
+        });
+    });
+
+    Route::controller(ProductsController::class)->group(function () 
+    {
+        Route::prefix('products')->group(function () 
+        {
+            Route::get('/', 'index');
+            Route::get('/{product}', 'show');
+            Route::post('/', 'store');
+            Route::put('/{product}', 'update');
+            Route::delete('/{product}', 'destroy');
         });
     });
 // });
