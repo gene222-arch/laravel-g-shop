@@ -6,13 +6,13 @@ use Illuminate\Support\Facades\Storage;
 
 class FileUploadService
 {
-    public function imageUpload($request, string $key, string $pathToStore): string
+    public function imageUpload($request, string $pathToStore): string
     {
         $path = '';
         
-        if ($request->hasFile($key))
+        if ($request->hasFile('image'))
         {
-            $file = $request->file($key);
+            $file = $request->file('image');
 
             $originalFilename = $file->getClientOriginalName();
             $fileName = pathinfo($originalFilename, PATHINFO_FILENAME);
@@ -27,13 +27,13 @@ class FileUploadService
         return Storage::url($path);
     }
 
-    public function videoUpload($request, string $key, string $pathToStore): string
+    public function videoUpload($request, string $pathToStore): string
     {
         $path = '';
         
-        if ($request->hasFile($key))
+        if ($request->hasFile('video'))
         {
-            $file = $request->file($key);
+            $file = $request->file('video');
 
             $originalFilename = $file->getClientOriginalName();
             $fileName = pathinfo($originalFilename, PATHINFO_FILENAME);

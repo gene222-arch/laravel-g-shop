@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\ResetPasswordController;
+use App\Http\Controllers\Api\FileUploadsController;
 use App\Http\Controllers\Api\ProductsController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,5 +44,11 @@ use Illuminate\Support\Facades\Route;
             Route::put('/{product}', 'update');
             Route::delete('/', 'destroy');
         });
+    });
+
+    Route::controller(FileUploadsController::class)->group(function () 
+    {
+        Route::post('/image', 'image');
+        Route::post('/video', 'video');
     });
 // });
