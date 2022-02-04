@@ -17,8 +17,11 @@ class Stock extends Model
         'bad_stock',
         'minimum_level'
     ];
-
-    public $timestamps = false;
+    
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
 
     public function product(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

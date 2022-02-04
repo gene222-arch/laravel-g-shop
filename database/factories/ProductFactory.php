@@ -18,7 +18,7 @@ class ProductFactory extends Factory
             'barcode' => $this->faker->unique()->randomDigit(),
             'sku' => $this->faker->unique()->randomDigit(),
             'image_url' => $this->faker->imageUrl(400, 400, 'fashion'),
-            'title' => $this->faker->title(),
+            'title' => $this->faker->unique()->title(),
             'description' => $this->faker->sentence(),
             'price' => $this->faker->randomDigit(),
             'created_at' => $this->faker->unique()->dateTime()

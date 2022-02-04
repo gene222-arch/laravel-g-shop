@@ -10,6 +10,7 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
+        'image_url',
         'barcode',
         'sku',
         'title',
@@ -17,7 +18,10 @@ class Product extends Model
         'price'
     ];
 
-    public $timestamps = false;
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
 
     protected static function booted()
     {

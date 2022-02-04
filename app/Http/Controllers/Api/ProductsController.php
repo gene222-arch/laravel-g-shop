@@ -11,6 +11,13 @@ use App\Services\ProductService;
 
 class ProductsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware([
+            'role:Super Administrator'
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -42,7 +49,7 @@ class ProductsController extends Controller
 
         return !($result instanceof Product) 
             ? $this->error($result)
-            : $this->success("Product created successfully.", $result);
+            : $this->success("Product created successfully.", $result, 201);
     }
 
     /**

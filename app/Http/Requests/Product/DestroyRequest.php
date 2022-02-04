@@ -14,8 +14,8 @@ class DestroyRequest extends BaseRequest
     public function rules()
     {
         return [
-            'product_ids' => ['required', 'array', 'distinct'],
-            'product_ids.*' => ['required', 'integer', 'exists:products,id']
+            'product_ids' => ['required', 'array'],
+            'product_ids.*' => ['required', 'integer', 'distinct', 'exists:products,id']
         ];
     }
 }
