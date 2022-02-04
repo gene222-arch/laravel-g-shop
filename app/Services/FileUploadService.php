@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits\Upload;
+namespace App\Services;
 
 use Illuminate\Support\Facades\Storage;
 
@@ -21,7 +21,7 @@ class FileUploadService
             $newFileName = "$fileName-". time() . ".$extension";
             $path = $pathToStore . $newFileName;
 
-            Storage::disk('local')->put($path, $file);
+            Storage::disk('local')->put($pathToStore, $file);
         }
 
         return Storage::url($path);
@@ -42,7 +42,7 @@ class FileUploadService
             $newFileName = "$fileName-" . time() . ".${extension}";
             $path = $pathToStore . $newFileName;
 
-            Storage::disk('local')->put($path, $file);
+            Storage::disk('local')->put($pathToStore, $file);
         }
 
         return Storage::url($path);

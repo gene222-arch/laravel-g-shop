@@ -48,7 +48,10 @@ use Illuminate\Support\Facades\Route;
 
     Route::controller(FileUploadsController::class)->group(function () 
     {
-        Route::post('/image', 'image');
-        Route::post('/video', 'video');
+        Route::prefix('file-upload')->group(function () 
+        {
+            Route::post('/image', 'image');
+            Route::post('/video', 'video');
+        });
     });
 // });

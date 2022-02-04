@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Upload\ImageUploadRequest;
 use App\Http\Requests\Upload\VideoUploadRequest;
-use App\Traits\Upload\FileUploadService;
+use App\Services\FileUploadService;
 
 class FileUploadsController extends Controller
 {
