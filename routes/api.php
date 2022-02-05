@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\Auth\ResetPasswordController;
 use App\Http\Controllers\Api\CategoriesController;
 use App\Http\Controllers\Api\FileUploadsController;
 use App\Http\Controllers\Api\ProductsController;
+use App\Http\Controllers\Api\RatingsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,6 +59,15 @@ use Illuminate\Support\Facades\Route;
             Route::put('/restore', 'restore');
             Route::put('/{product}', 'update');
             Route::delete('/', 'destroy');
+        });
+    });
+
+    Route::controller(RatingsController::class)->group(function () 
+    {
+        Route::prefix('ratings')->group(function () 
+        {
+            Route::post('/', 'store');
+            Route::put('/{rating}', 'update');
         });
     });
 
