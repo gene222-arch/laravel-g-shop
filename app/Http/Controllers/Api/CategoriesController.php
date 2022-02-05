@@ -40,7 +40,7 @@ class CategoriesController extends Controller
     {
         $category = Category::create($request->validated());
 
-        return $this->success("Category created successfully.", $category);
+        return $this->success("Category created successfully.", $category, 201);
     }
 
     /**

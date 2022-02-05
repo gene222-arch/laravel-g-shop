@@ -15,14 +15,14 @@ class FileUploadsControllerTest extends TestCase
      */
     public function user_can_upload_an_image_with_specified_json_structure()
     {
-        $image = UploadedFile::fake()->image('image.jpg', 10, 10);
+        $image = UploadedFile::fake()->image('image.jpg', 100, 100);
         $data = [
             'image' => $image,
             'directory' => 'images/'
         ];
 
         $response = $this->post('/api/file-upload/image', $data, [
-            'enctype' => 'multipart/form-data'
+            'enctype'
         ]);
 
         $response->assertStatus(200);

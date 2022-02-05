@@ -15,9 +15,9 @@ class UpdateRequest extends BaseRequest
     {
         return [
             'category_id' => ['required', 'integer', 'exists:categories,id'],
-            'name' => ['required', 'string', "unique:categories,name,{$this->category_id}"],
+            'name' => ['nullable', 'string', "unique:categories,name,{$this->category_id}"],
             'description' => ['nullable', 'string'],
-            'hex_code' => ['required', 'string', 'min:7', 'max:8', "unique:categories,hex_code{$this->category_id}"]
+            'hex_code' => ['nullable', 'string', 'min:7', 'max:8', "unique:categories,hex_code{$this->category_id}"]
         ];
     }
 }

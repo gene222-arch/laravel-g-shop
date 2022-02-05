@@ -14,7 +14,7 @@ class ImageUploadRequest extends BaseRequest
     public function rules()
     {
         return [
-            'image' => ['required', 'image', 'mimes:jpeg,jpg,png', 'max:2000'], // 2MB,
+            'image' => ['required', 'image', 'mimetypes:image/jpeg,image/png,image/jpg', 'max:2000'], // 2MB,
             'directory' => ['required', 'string']
         ];
     }
