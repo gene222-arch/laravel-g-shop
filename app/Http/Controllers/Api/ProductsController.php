@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Product;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Product\DestroyRequest;
+use App\Http\Requests\Product\DestroyRestoreRequest;
 use App\Http\Requests\Product\StoreRequest;
 use App\Http\Requests\Product\UpdateRequest;
 use App\Services\ProductService;
@@ -92,11 +92,11 @@ class ProductsController extends Controller
     /**
      * Remove the specified resources from storage.
      *
-     * @param  \App\Http\Requests\Product\DestroyRequest  $request
+     * @param  \App\Http\Requests\Product\DestroyRestoreRequest  $request
      * @param  \App\Services\ProductService  $service
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(DestroyRequest $request, ProductService $service)
+    public function destroy(DestroyRestoreRequest $request, ProductService $service)
     {
         $result = $service->destroyProducts(
             $request->product_ids,
@@ -105,5 +105,14 @@ class ProductsController extends Controller
         return (gettype($result) === "string")
             ? $this->error($result)
             : $this->success("Product(s) deleted successfully.");
+    }
+
+    public function restore(DestroyRestoreRequest $request) 
+    {
+        Product::onlyTrashed()
+            ->whereIn('id', $request->product_ids)
+            ->restore();
+            
+        $this->success("Product\s restored successfully.");
     }
 }

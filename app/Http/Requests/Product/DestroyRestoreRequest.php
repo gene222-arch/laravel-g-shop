@@ -4,7 +4,7 @@ namespace App\Http\Requests\Product;
 
 use App\Http\Requests\BaseRequest;
 
-class DestroyRequest extends BaseRequest
+class DestroyRestoreRequest extends BaseRequest
 {
     /**
      * Get the validation rules that apply to the request.

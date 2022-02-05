@@ -55,6 +55,7 @@ use Illuminate\Support\Facades\Route;
             Route::get('/', 'index');
             Route::get('/{product}', 'show');
             Route::post('/', 'store');
+            Route::put('/restore', 'restore');
             Route::put('/{product}', 'update');
             Route::delete('/', 'destroy');
         });
