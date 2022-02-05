@@ -107,12 +107,18 @@ class ProductsController extends Controller
             : $this->success("Product(s) deleted successfully.");
     }
 
+     /**
+     * Restore the specified resources from storage.
+     *
+     * @param  \App\Http\Requests\Product\DestroyRestoreRequest  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function restore(DestroyRestoreRequest $request) 
     {
         Product::onlyTrashed()
             ->whereIn('id', $request->product_ids)
             ->restore();
             
-        $this->success("Product\s restored successfully.");
+        return $this->success("Product\s restored successfully.");
     }
 }

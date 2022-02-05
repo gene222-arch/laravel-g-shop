@@ -175,4 +175,30 @@ class ProductsControllerTest extends TestCase
             'status_message'
         ]);
     }
+
+    /**
+     * test
+     */
+    public function user_can_restore_products_with_specified_json_structure()
+    {
+        $product = Product::factory()->has(Stock::factory())->create();
+
+        $data = [
+           'product_ids' => [
+                $product->id
+           ]
+        ];
+
+        $product->delete();
+
+        $response = $this->put('/api/products/restore', $data);
+
+        $response->assertSuccessful();
+        $response->assertJsonStructure([
+            'data',
+            'message',
+            'status',
+            'status_message'
+        ]);
+    }
 }
