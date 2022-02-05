@@ -19,7 +19,7 @@ class CreateRatingsTable extends Migration
             $table->id();
             $table->foreignIdFor(Product::class)->constrained();
             $table->foreignIdFor(User::class)->constrained();
-            $table->unsignedDecimal('value', 2)->default(0);
+            $table->unsignedDecimal('value', 5, 2)->default(0);
 
             $table->unique([
                 'product_id',

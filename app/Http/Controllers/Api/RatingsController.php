@@ -17,8 +17,9 @@ class RatingsController extends Controller
     public function store(RatingRequest $request)
     {
         $rating = Rating::create($request->validated());
+        $rating = Rating::with(['user', 'product'])->find($rating->id);
 
-        return $this->success("Rated successfully.", $rating);
+        return $this->success("Rated successfully.", $rating, 201);
     }
 
     /**

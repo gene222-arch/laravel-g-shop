@@ -17,7 +17,13 @@ class Rating extends Model
 
     public $timestamps = false;
 
-    protected $hidden = [
-        'deleted_at'
-    ];
+    public function product(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }
