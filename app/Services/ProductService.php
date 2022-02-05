@@ -35,7 +35,7 @@ class ProductService
                     ]);
                 }
 
-                return $product;
+                return Product::with(['stock', 'categories'])->find($product->id);
             });
         } catch (\Throwable $th) {
             return $th->getMessage();

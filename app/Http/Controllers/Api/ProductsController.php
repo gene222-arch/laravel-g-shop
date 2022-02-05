@@ -25,7 +25,10 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::with('stock')->get();
+        $products = Product::with([
+            'stock',
+            'categories'
+        ])->get();
 
         return $this->success("OK", $products);
     }
@@ -61,7 +64,11 @@ class ProductsController extends Controller
      */
     public function show(Product $product)
     {
-        $product = Product::with('stock')->find($product->id);
+        $product = Product::with([
+            'stock',
+            'categories'
+        ])
+            ->find($product->id);
 
         return $this->success("OK", $product);
     }
