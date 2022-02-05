@@ -7,10 +7,17 @@ use Illuminate\Support\Facades\DB;
 
 class ProductService
 {
-    public function storeProduct(string $imageUrl, string $title, string $description, float $price, ?int $inStock): Product|string
+    public function storeProduct(
+        string $imageUrl, 
+        string $title, 
+        string $description, 
+        float $price, 
+        ?int $inStock,
+        array $categoryIds
+    ): Product|string
     {
         try {
-            $result = DB::transaction(function () use ($imageUrl, $title, $description, $price, $inStock): Product 
+            $result = DB::transaction(function () use ($imageUrl, $title, $description, $price, $inStock, $categoryIds): Product 
             {
                 $product = Product::create([
                     'image_url' => $imageUrl,
@@ -18,6 +25,8 @@ class ProductService
                     'description' => $description,
                     'price' => $price
                 ]);
+
+                $product->categories()->attach($categoryIds);
 
                 if ($product && $inStock) 
                 {
@@ -35,10 +44,18 @@ class ProductService
         return $result;
     }
 
-    public function updateProduct(Product $product, ?string $imageUrl, ?string $title, ?string $description, ?float $price, ?int $inStock): bool|string
+    public function updateProduct(
+        Product $product, 
+        ?string $imageUrl, 
+        ?string $title, 
+        ?string $description, 
+        ?float $price, 
+        ?int $inStock,
+        ?array $categoryIds
+    ): bool|string
     {
         try {
-            $result = DB::transaction(function () use ($product, $imageUrl, $title, $description, $price, $inStock): bool
+            $result = DB::transaction(function () use ($product, $imageUrl, $title, $description, $price, $inStock, $categoryIds): bool
             {
                 if ($inStock) 
                 {
@@ -53,6 +70,8 @@ class ProductService
                     'description' => $description ?? $product->description,
                     'price' => $price ?? $product->price
                 ]);
+
+                $product->categories()->sync($categoryIds);
 
                 return $isUpdated;
             });

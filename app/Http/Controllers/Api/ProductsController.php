@@ -44,7 +44,8 @@ class ProductsController extends Controller
             $request->title,
             $request->description,
             $request->price,
-            $request->in_stock
+            $request->in_stock,
+            $request->category_ids
         );
 
         return !($result instanceof Product) 
@@ -81,7 +82,8 @@ class ProductsController extends Controller
             $request->title,
             $request->description,
             $request->price,
-            $request->in_stock
+            $request->in_stock,
+            $request->category_ids
         );
 
         return (gettype($result) === "string")

@@ -19,6 +19,8 @@ class StoreRequest extends BaseRequest
             'description' => ['nullable', 'string', 'max:1000'],
             'price' => ['required', 'numeric', 'min:1'],
             'in_stock' => ['nullable', 'integer', 'min:0'],
+            'category_ids' => ['required', 'array'],
+            'category_ids.*' => ['required', 'integer', 'distinct', 'exists:categories,id']
         ];
     }
 }
