@@ -38,6 +38,33 @@ class CategoriesControllerTest extends TestCase
     /**
      * test
      */
+    public function user_can_filter_categories()
+    {
+        Category::factory()->create();
+        Category::factory()->create();
+        Category::factory()->create()->delete();
+
+        $response = $this->get('/api/categories?onlyTrashed=true');
+        
+        $response->assertSuccessful();
+        $response->assertJsonStructure([
+            'data' => [
+                [
+                    'id',
+                    'name',
+                    'description',
+                    'hex_code'
+                ]
+            ],
+            'message',
+            'status',
+            'status_message'
+        ]);
+    }
+
+    /**
+     * test
+     */
     public function user_can_create_a_category_with_specified_json_structure()
     {
         $data = [
