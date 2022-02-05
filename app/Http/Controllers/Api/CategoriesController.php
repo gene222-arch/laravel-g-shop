@@ -8,6 +8,7 @@ use App\Http\Requests\Category\StoreRequest;
 use App\Http\Requests\Category\UpdateRequest;
 use App\Http\Requests\Category\DestroyRestoreRequest;
 use App\QueryFilters\DeletedAt;
+use App\QueryFilters\Name;
 use Illuminate\Pipeline\Pipeline;
 
 class CategoriesController extends Controller

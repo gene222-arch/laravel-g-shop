@@ -1,0 +1,15 @@
+<?php
+
+namespace {{ namespace }};
+
+use Closure;
+
+class {{ class }}
+{
+    public function handle($query, Closure $next)
+    {
+        $builder = $next($query);
+
+        return $builder;
+    }
+}
