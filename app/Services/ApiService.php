@@ -19,13 +19,15 @@ class ApiService
 	public function token(
         PersonalAccessTokenResult $token, 
         ?string $message = null, 
+        $data = null,
         int $code = Response::HTTP_OK
     ): \Illuminate\Http\JsonResponse
 	{
 		$tokenInformation = [
 			"access_token" => $token->accessToken,
             "token_type" => "Bearer",
-            "expired_at" => Carbon::parse($token->token->expires_at)->toDateTimeString()
+            "expired_at" => Carbon::parse($token->token->expires_at)->toDateTimeString(),
+            "data" => $data
 		];
 
 		return $this->success($message, $tokenInformation, $code);

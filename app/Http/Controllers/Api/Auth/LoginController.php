@@ -62,7 +62,8 @@ class LoginController extends Controller
 
         return $service->token(
             $service->getPersonalAccessToken(),
-            "User logged in successfully."
+            "User logged in successfully.",
+            auth()->user()
         );
     }
 
