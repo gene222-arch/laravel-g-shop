@@ -23,7 +23,7 @@ class Product extends Model
     protected $hidden = [
         'created_at',
         'updated_at',
-        'hidden'
+        'deleted_at'
     ];
 
     protected static function booted()

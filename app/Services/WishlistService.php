@@ -19,26 +19,23 @@ class WishlistService
                     ]);
                 }
 
-                $userQuery = User::query();
                 $productExists = $this->checkProductExists($user, $productID);
 
-                $userQuery
-                    ->when($productExists, 
-                        function ($query) use ($productID) {
-                            $query->wishlists()
-                                ->where('product_id', $productID)
-                                ->delete();
-                        }
-                    );
-
-                $userQuery
-                    ->when(! $productExists, function ($query) use ($productID) {
-                        $query
-                            ->wishlists()
-                            ->create([
-                                'product_id' => $productID
-                            ]);
-                    });
+                if (! $productExists) 
+                {
+                    $user
+                        ->wishlists()
+                        ->create([
+                            'product_id' => $productID
+                        ]);
+                }
+                else 
+                {
+                    $user
+                        ->wishlists()
+                        ->where('product_id', $productID)
+                        ->delete();
+                }
 
                 return true;
             });
