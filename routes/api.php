@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\CategoriesController;
 use App\Http\Controllers\Api\FileUploadsController;
 use App\Http\Controllers\Api\ProductsController;
 use App\Http\Controllers\Api\RatingsController;
+use App\Http\Controllers\Api\WishlistsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -78,5 +79,15 @@ use Illuminate\Support\Facades\Route;
             Route::post('/image', 'image');
             Route::post('/video', 'video');
         });
+    });
+
+    Route::controller(WishlistsController::class)->group(function () 
+    {
+        Route::prefix('wishlists')->group(function () 
+        {
+            Route::get('/', 'index');
+            Route::get('/{user}', 'showViaUser');
+            Route::post('/{user}', 'toggle');
+        }); 
     });
 // });

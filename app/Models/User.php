@@ -68,4 +68,9 @@ class User extends Authenticatable implements MustVerifyEmail
             ->as('cart')
             ->withPivot('quantity');
     }
+
+    public function wishlists(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Wishlist::class);
+    }
 }
