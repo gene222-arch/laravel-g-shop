@@ -68,7 +68,8 @@ class RegisterController extends Controller
 
         return $service->token(
             $service->getPersonalAccessToken(),
-            "Account registered successfully"
+            "Account registered successfully",
+            201
         );
     }
 }

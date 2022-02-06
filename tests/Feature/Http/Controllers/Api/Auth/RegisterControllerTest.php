@@ -8,25 +8,29 @@ use Tests\TestCase;
 
 class RegisterControllerTest extends TestCase
 {
+    use WithFaker;
+
     /**
-     * test
+     * @test
     */
-    public function user_receive_valid_json_response_on_register()
+    public function user_can_register_wtih_specified_json_structure()
     {
         $data = [
-            "name" => "kokoro ",
-            "email" => "gleason.dorcass@example.net",
-            "password" => "password",
-            "password_confirmation" => "password"
+            'name' => $this->faker()->unique()->name(),
+            'email' => $this->faker()->unique()->email(),
+            'password' => 'password',
+            'password_confirmation' => 'password',
+            'role_id' => 2
         ];
 
-        $response = $this->post("/api/auth/register", $data);
+        $response = $this->post('/api/auth/register', $data);
 
+        $response->assertCreated();
         $response->assertJsonStructure([
             'data' => [
-                "access_token",
-                "token_type",
-                "expired_at"
+                'access_token',
+                'token_type',
+                'expired_at'
             ],
             'message',
             'status',
