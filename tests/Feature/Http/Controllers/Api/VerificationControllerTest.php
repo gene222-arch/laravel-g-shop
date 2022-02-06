@@ -8,10 +8,10 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class EmailVerificationControllerTest extends TestCase
+class VerificationControllerTest extends TestCase
 {
     /**
-     * @test
+     * test
      */
     public function user_can_verify_email_address()
     {
@@ -26,8 +26,9 @@ class EmailVerificationControllerTest extends TestCase
 
         $this->assertSame(NULL, $user->email_verified_at);
 
-        $this->actingAs($user, 'api')->get($uri);
+        $response = $this->actingAs($user, 'api')->get($uri);
 
+        $response->assertSuccessful();
         $this->assertNotNull($user->email_verified_at);
     }
 }
