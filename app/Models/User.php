@@ -6,6 +6,7 @@ use App\Models\Product;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use App\Jobs\QueueResetPasswordNotification;
+use App\Notifications\EmailVerificationNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -51,11 +52,16 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function sendPasswordResetNotification($token)
+    public function sendPasswordResetNotification($token): void
     {
         dispatch(
             new QueueResetPasswordNotification($this, $token)
         )->delay(now()->addSeconds(2));
+    }
+
+    public function sendEmailVerificationNotification(): void
+    {
+        $this->notify(new EmailVerificationNotification());
     }
 
     public function profile(): \Illuminate\Database\Eloquent\Relations\HasOne

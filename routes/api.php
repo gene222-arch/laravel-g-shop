@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\Api\Auth\ForgotPasswordController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\RatingsController;
+use App\Http\Controllers\Api\ProductsController;
+use App\Http\Controllers\Api\WishlistsController;
 use App\Http\Controllers\Api\Auth\LoginController;
-use App\Http\Controllers\Api\Auth\RegisterController;
-use App\Http\Controllers\Api\Auth\ResetPasswordController;
 use App\Http\Controllers\Api\CategoriesController;
 use App\Http\Controllers\Api\FileUploadsController;
-use App\Http\Controllers\Api\ProductsController;
-use App\Http\Controllers\Api\RatingsController;
-use App\Http\Controllers\Api\WishlistsController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Api\Auth\VerificationController;
+use App\Http\Controllers\Api\Auth\ResetPasswordController;
+use App\Http\Controllers\Api\Auth\ForgotPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,15 @@ use Illuminate\Support\Facades\Route;
             Route::post('/email', [ForgotPasswordController::class, 'sendResetLinkEmail']);
             Route::post('/reset', [ResetPasswordController::class, 'reset'])
                 ->name('password.reset');
+        });
+
+        Route::controller(VerificationController::class)->group(function () 
+        {
+            Route::name('verification.')->group(function () 
+            {
+                Route::get('/verify-email/{id}/{hash}', 'verify')->name('verify');
+                Route::get('/resend', 'resend')->name('resend');
+            });
         });
     });
 
