@@ -18,7 +18,7 @@ class EmailVerificationNotification extends VerifyEmail
      * @param  mixed  $notifiable
      * @return string
      */
-    protected function verificationUrl($notifiable): string
+    public function verificationUrl($notifiable): string
     {
         if (static::$createUrlCallback) {
             return call_user_func(static::$createUrlCallback, $notifiable);
@@ -38,9 +38,9 @@ class EmailVerificationNotification extends VerifyEmail
             $parameters
         );
 
-        $apiUrl = env('APP_URL') . '/api';
-        $clientUrl = env('REACT_APP_URL') . '/auth';
+        $appUrl = env('APP_URL') . '/api';
+        $reactAppUrl = env('REACT_APP_URL');
 
-        return str_replace($apiUrl, $clientUrl, $url);
+        return str_replace($appUrl, $reactAppUrl, $url);
     }
 }
