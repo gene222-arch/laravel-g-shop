@@ -13,6 +13,11 @@ use Illuminate\Pipeline\Pipeline;
 
 class CategoriesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:Manage Categories');
+    }
+
     /**
      * Display a listing of the resource.
      *
