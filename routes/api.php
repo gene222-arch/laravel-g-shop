@@ -19,16 +19,16 @@ use App\Http\Controllers\Api\Auth\ForgotPasswordController;
 |
 | Here is where you can register API routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
+| is assigned the 'api' middleware group. Enjoy building your API!
 |
 */
 
-// Route::middleware("")->group(function () 
+// Route::middleware('')->group(function () 
 // {
-    Route::prefix("auth")->group(function () 
+    Route::prefix('auth')->group(function () 
     {
-        Route::post("/login", [LoginController::class, "login"]);
-        Route::post("/register", [RegisterController::class, "register"]);
+        Route::post('/login', [LoginController::class, 'login']);
+        Route::post('/register', [RegisterController::class, 'register']);
 
         Route::prefix('forgot-password')->group(function () 
         {
@@ -47,57 +47,63 @@ use App\Http\Controllers\Api\Auth\ForgotPasswordController;
         });
     });
 
-    Route::controller(CategoriesController::class)->group(function () 
+    Route::middleware([
+        'auth:api', 
+        'verified'
+    ])->group(function ()
     {
-        Route::prefix('categories')->group(function () 
+        Route::controller(CategoriesController::class)->group(function () 
         {
-            Route::get('/', 'index');
-            Route::get('/{category}', 'show');
-            Route::post('/', 'store');
-            Route::put('/restore', 'restore');
-            Route::put('/{category}', 'update');
-            Route::delete('/', 'destroy');
+            Route::prefix('categories')->group(function () 
+            {
+                Route::get('/', 'index');
+                Route::get('/{category}', 'show');
+                Route::post('/', 'store');
+                Route::put('/restore', 'restore');
+                Route::put('/{category}', 'update');
+                Route::delete('/', 'destroy');
+            });
         });
-    });
-
-    Route::controller(ProductsController::class)->group(function () 
-    {
-        Route::prefix('products')->group(function () 
+    
+        Route::controller(ProductsController::class)->group(function () 
         {
-            Route::get('/', 'index');
-            Route::get('/{product}', 'show');
-            Route::post('/', 'store');
-            Route::put('/restore', 'restore');
-            Route::put('/{product}', 'update');
-            Route::delete('/', 'destroy');
+            Route::prefix('products')->group(function () 
+            {
+                Route::get('/', 'index');
+                Route::get('/{product}', 'show');
+                Route::post('/', 'store');
+                Route::put('/restore', 'restore');
+                Route::put('/{product}', 'update');
+                Route::delete('/', 'destroy');
+            });
         });
-    });
-
-    Route::controller(RatingsController::class)->group(function () 
-    {
-        Route::prefix('ratings')->group(function () 
+    
+        Route::controller(RatingsController::class)->group(function () 
         {
-            Route::post('/', 'store');
-            Route::put('/{rating}', 'update');
+            Route::prefix('ratings')->group(function () 
+            {
+                Route::post('/', 'store');
+                Route::put('/{rating}', 'update');
+            });
         });
-    });
-
-    Route::controller(FileUploadsController::class)->group(function () 
-    {
-        Route::prefix('file-upload')->group(function () 
+    
+        Route::controller(FileUploadsController::class)->group(function () 
         {
-            Route::post('/image', 'image');
-            Route::post('/video', 'video');
+            Route::prefix('file-upload')->group(function () 
+            {
+                Route::post('/image', 'image');
+                Route::post('/video', 'video');
+            });
         });
-    });
-
-    Route::controller(WishlistsController::class)->group(function () 
-    {
-        Route::prefix('wishlists')->group(function () 
+    
+        Route::controller(WishlistsController::class)->group(function () 
         {
-            Route::get('/', 'index');
-            Route::get('/{user}', 'showViaUser');
-            Route::post('/{user}', 'toggle');
-        }); 
+            Route::prefix('wishlists')->group(function () 
+            {
+                Route::get('/', 'index');
+                Route::get('/{user}', 'showViaUser');
+                Route::post('/{user}', 'toggle');
+            }); 
+        });
     });
 // });
