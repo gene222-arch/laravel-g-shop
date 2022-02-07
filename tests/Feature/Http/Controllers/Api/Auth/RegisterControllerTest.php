@@ -11,7 +11,7 @@ class RegisterControllerTest extends TestCase
     use WithFaker;
 
     /**
-     * @test
+     * test
     */
     public function user_can_register_wtih_specified_json_structure()
     {
@@ -19,8 +19,7 @@ class RegisterControllerTest extends TestCase
             'name' => $this->faker()->unique()->name(),
             'email' => $this->faker()->unique()->email(),
             'password' => 'password',
-            'password_confirmation' => 'password',
-            'role_id' => 2
+            'password_confirmation' => 'password'
         ];
 
         $response = $this->post('/api/auth/register', $data);
