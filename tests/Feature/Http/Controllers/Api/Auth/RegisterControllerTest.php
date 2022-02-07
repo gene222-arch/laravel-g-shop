@@ -13,7 +13,7 @@ class RegisterControllerTest extends TestCase
     /**
      * test
     */
-    public function user_can_register_wtih_specified_json_structure()
+    public function user_can_register_with_specified_json_structure()
     {
         $data = [
             'name' => $this->faker()->unique()->name(),
