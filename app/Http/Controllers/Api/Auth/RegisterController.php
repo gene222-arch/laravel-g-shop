@@ -60,6 +60,7 @@ class RegisterController extends Controller
         );
 
         $user = User::create($user);
+        $user->assignRole('Customer');
 
         if (! Auth::attempt($request->safe(["email", "password"]))) {
             return $this->error("Login failed");
