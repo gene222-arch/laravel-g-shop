@@ -42,6 +42,11 @@ class Product extends Model
             ->as('category');
     }
 
+    public function ratings(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Rating::class);
+    }
+
     public function stock(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(Stock::class);
