@@ -70,13 +70,14 @@ class ProductsControllerTest extends TestCase
     }
 
     /**
-     * test
+     * @test
      */
     public function user_can_get_product_with_specified_json_structure()
     {
         $product = Product::factory()
             ->has(Stock::factory())
             ->has(Category::factory())
+            ->has(Rating::factory())
             ->create();
 
         $response = $this->get('/api/products/' . $product->id);
@@ -111,7 +112,9 @@ class ProductsControllerTest extends TestCase
                             'category_id'
                         ]
                     ]
-                ]
+                ],
+                'ratings_count',
+                'ratings_avg_value'
             ],
             'message',
             'status',

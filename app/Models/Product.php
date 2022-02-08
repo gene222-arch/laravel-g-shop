@@ -40,6 +40,7 @@ class Product extends Model
     {
         return $this->belongsToMany(Category::class)
             ->withPivot('type')
+            ->withPivotValue('type', 'Main')
             ->as('category');
     }
 
