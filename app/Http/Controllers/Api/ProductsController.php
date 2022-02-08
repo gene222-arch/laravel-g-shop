@@ -28,8 +28,8 @@ class ProductsController extends Controller
             'stock',
             'categories'
         ])
-            ->withAvg('rating', 'value')
-            ->withCount('rating', 'user_id')
+            ->withAvg('ratings', 'value')
+            ->withCount('ratings')
             ->get();
 
         return $this->success("OK", $products);

@@ -4,6 +4,7 @@ namespace Tests\Feature\Http\Controllers\Api;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Rating;
 use App\Models\Stock;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -20,6 +21,7 @@ class ProductsControllerTest extends TestCase
         Product::factory()
             ->has(Stock::factory())
             ->has(Category::factory())
+            ->has(Rating::factory())
             ->count(2)
             ->create();
 
@@ -56,7 +58,9 @@ class ProductsControllerTest extends TestCase
                                 'category_id'
                             ]
                         ]
-                    ]
+                    ],
+                    'ratings_count',
+                    'ratings_avg_value'
                 ]
             ],
             'message',
