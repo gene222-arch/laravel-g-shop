@@ -27,7 +27,10 @@ class ProductsController extends Controller
         $products = Product::with([
             'stock',
             'categories'
-        ])->get();
+        ])
+            ->withAvg('rating', 'value')
+            ->withCount('rating', 'user_id')
+            ->get();
 
         return $this->success("OK", $products);
     }
