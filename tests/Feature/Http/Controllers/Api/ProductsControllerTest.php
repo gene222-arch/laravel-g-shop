@@ -193,16 +193,14 @@ class ProductsControllerTest extends TestCase
     }
 
     /**
-     * test
+     * @test
      */
     public function user_can_update_product_with_specified_json_structure()
     {
-        $categoriesIds = Category::factory()
-            ->count(3)
-            ->create()
-            ->map 
-            ->id
-            ->toArray();
+        $categoryMain = Category::factory()->create();
+        $categorySub = Category::factory()->create();
+
+        $productTitle = $this->faker()->unique()->name;
 
         $product = Product::factory()
             ->has(Stock::factory())
@@ -210,7 +208,7 @@ class ProductsControllerTest extends TestCase
             ->create();
 
         $productID = $product->id;  
-        $productTitle = 'New Product ss';
+        $productTitle = $this->faker()->unique()->name;
 
         $image = UploadedFile::fake()->image($productTitle, 100, 100);
 
@@ -218,7 +216,14 @@ class ProductsControllerTest extends TestCase
             'product_id' => $productID,
             'image_url' => $image->path(),
             'title' => $productTitle,
-            'category_ids' => $categoriesIds
+            'category_ids' => [
+                $categoryMain->id => [
+                    'type' => 'Main'
+                ],
+                $categorySub->id => [
+                    'type' => 'Sub'
+                ]
+            ]
         ];
         
         $response = $this->put("/api/products/$productID", $data);
