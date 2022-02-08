@@ -20,8 +20,9 @@ class UpdateRequest extends BaseRequest
             'description' => ['nullable', 'string', 'max:1000'],
             'price' => ['nullable', 'numeric', 'min:1'],
             'in_stock' => ['nullable', 'integer', 'min:0'],
-            'category_ids' => ['nullable', 'array'],
-            'category_ids.*' => ['nullable', 'integer', 'distinct', 'exists:categories,id']
+            'categories' => ['required', 'array'],
+            'categories.*' => ['required', 'integer', 'distinct', 'exists:categories,id'],
+            'categories.*.type' => ['required', 'string', 'in:Main,Sub']
         ];
     }
 }
