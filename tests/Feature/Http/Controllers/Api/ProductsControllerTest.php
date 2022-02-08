@@ -13,6 +13,8 @@ use Tests\TestCase;
 
 class ProductsControllerTest extends TestCase
 {
+    use WithFaker;
+
     /**
      * test
      */
@@ -70,7 +72,7 @@ class ProductsControllerTest extends TestCase
     }
 
     /**
-     * @test
+     * test
      */
     public function user_can_get_product_with_specified_json_structure()
     {
@@ -127,14 +129,10 @@ class ProductsControllerTest extends TestCase
      */
     public function user_can_create_product_with_specified_json_structure()
     {
-        $categoriesIds = Category::factory()
-            ->count(3)
-            ->create()
-            ->map 
-            ->id
-            ->toArray();
+        $categoryMain = Category::factory()->create();
+        $categorySub = Category::factory()->create();
 
-        $productTitle = 'product Ischsi';
+        $productTitle = $this->faker()->unique()->name;
 
         $image = UploadedFile::fake()->image($productTitle, 100, 100);
 
@@ -144,7 +142,14 @@ class ProductsControllerTest extends TestCase
             'description' => 'The first cool product',
             'price' => 20.50,
             'in_stock' => 1,
-            'category_ids' => $categoriesIds
+            'categories' => [
+                $categoryMain->id => [
+                    'type' => 'Main'
+                ],
+                $categorySub->id => [
+                    'type' => 'Sub'
+                ]
+            ] 
         ];
         
         $response = $this->post('/api/products', $data);
