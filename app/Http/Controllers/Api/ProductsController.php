@@ -50,7 +50,7 @@ class ProductsController extends Controller
             $request->description,
             $request->price,
             $request->in_stock,
-            $request->category_ids
+            $request->categories
         );
 
         return !($result instanceof Product) 

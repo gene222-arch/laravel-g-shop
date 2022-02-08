@@ -13,11 +13,11 @@ class ProductService
         string $description, 
         float $price, 
         ?int $inStock,
-        array $categoryIds
+        array $categories
     ): Product|string
     {
         try {
-            $result = DB::transaction(function () use ($imageUrl, $title, $description, $price, $inStock, $categoryIds): Product 
+            $result = DB::transaction(function () use ($imageUrl, $title, $description, $price, $inStock, $categories): Product 
             {
                 $product = Product::create([
                     'image_url' => $imageUrl,
@@ -26,7 +26,7 @@ class ProductService
                     'price' => $price
                 ]);
 
-                $product->categories()->attach($categoryIds);
+                $product->categories()->attach($categories);
 
                 if ($product && $inStock) 
                 {
@@ -51,11 +51,11 @@ class ProductService
         ?string $description, 
         ?float $price, 
         ?int $inStock,
-        ?array $categoryIds
+        ?array $categories
     ): bool|string
     {
         try {
-            $result = DB::transaction(function () use ($product, $imageUrl, $title, $description, $price, $inStock, $categoryIds): bool
+            $result = DB::transaction(function () use ($product, $imageUrl, $title, $description, $price, $inStock, $categories): bool
             {
                 if ($inStock) 
                 {
@@ -71,7 +71,7 @@ class ProductService
                     'price' => $price ?? $product->price
                 ]);
 
-                $product->categories()->sync($categoryIds);
+                $product->categories()->sync($categories);
 
                 return $isUpdated;
             });

@@ -28,6 +28,7 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->foreignIdFor(Category::class)->constrained();
             $table->foreignIdFor(Product::class)->constrained();
+            $table->char('type', 4);
         });
     }
 

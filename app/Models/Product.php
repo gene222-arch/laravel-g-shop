@@ -39,6 +39,7 @@ class Product extends Model
     public function categories(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Category::class)
+            ->withPivot('type')
             ->as('category');
     }
 
