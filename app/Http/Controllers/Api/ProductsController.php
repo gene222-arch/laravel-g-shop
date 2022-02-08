@@ -70,6 +70,8 @@ class ProductsController extends Controller
             'stock',
             'categories'
         ])
+            ->withAvg('ratings', 'value')
+            ->withCount('ratings')
             ->find($product->id);
 
         return $this->success("OK", $product);
